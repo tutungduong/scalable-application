@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:x-transition="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="mobile"
      class="md:hidden"
      x-show="isVisible()">
@@ -48,13 +48,19 @@
                      th:src="@{/img/scalable-logo.svg}" alt="Scalable Logo"/>
             </div>
             <div class="mt-5 flex-1 h-0 overflow-y-auto">
-                <nav class="px-2">
-                    <a th:replace="fragments/sidebar-buttons :: mobile-button(link='#', title='Dashboard', menuItem='dashboard', icon='dashboard')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: mobile-button(link='#', title='Team', menuItem='team', icon='team')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: mobile-button(link='#', title='Projects', menuItem='projects', icon='projects')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: mobile-button(link='#', title='Calendar', menuItem='calendar', icon='calendar')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: mobile-button(link='#', title='Documents', menuItem='documents', icon='documents')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: mobile-button(link='#', title='Reports', menuItem='reports', icon='reports')"></a>
+                <nav class="flex-1 px-2 bg-white">
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#',
+                    title='Dashboard', menuItem='dashboard', icon='dashboard')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link=@{/users},
+                    title='Users', menuItem='users', icon='users')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link=@{/teams},
+                    title='Teams', menuItem='teams', icon='user-group')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#',
+                    title='Calendar', menuItem='calendar', icon='calendar')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#',
+                    title='Documents', menuItem='documents', icon='documents')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#',
+                    title='Reports', menuItem='reports', icon='reports')"></a>
                 </nav>
             </div>
         </div>
@@ -71,16 +77,23 @@
                      th:src="@{/img/scalable-logo.svg}" alt="Scalable Logo"/>
             </div>
             <div class="mt-5 flex-grow flex flex-col">
-                <!-- tag::desktop-nav[] -->
+                <!-- tag::sidebar[] -->
                 <nav class="flex-1 px-2 bg-white">
-                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#', title='Dashboard', menuItem='dashboard', icon='dashboard')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#', title='Team', menuItem='team', icon='team')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#', title='Projects', menuItem='projects', icon='projects')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#', title='Calendar', menuItem='calendar', icon='calendar')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#', title='Documents', menuItem='documents', icon='documents')"></a>
-                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#', title='Reports', menuItem='reports', icon='reports')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#',
+title='Dashboard', menuItem='dashboard', icon='dashboard')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link=@{/users},
+title='Users', menuItem='users', icon='users')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link=@{/teams},
+title='Teams', menuItem='teams', icon='user-group')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#',
+title='Calendar', menuItem='calendar', icon='calendar')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#',
+title='Documents', menuItem='documents', icon='documents')"></a>
+                    <a th:replace="fragments/sidebar-buttons :: desktop-button(link='#',
+title='Reports', menuItem='reports', icon='reports')"></a>
                 </nav>
-                <!-- end::desktop-nav[] -->
+
+                <!-- end::sidebar[] -->
             </div>
         </div>
     </div>
