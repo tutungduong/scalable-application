@@ -1,10 +1,14 @@
 package com.javaguides.scalable.entity;
 
+import com.javaguides.scalable.entity.constants.GenderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -19,7 +23,8 @@ public class User {
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private GenderStatus gender;
     @Column(nullable = false)
     private String birthday;
     @Column(nullable = false, unique = true)

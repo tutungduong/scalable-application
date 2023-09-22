@@ -4,6 +4,8 @@ import com.javaguides.scalable.dto.UserDto;
 import com.javaguides.scalable.entity.User;
 import com.javaguides.scalable.repository.UserRepository;
 import com.javaguides.scalable.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,15 +43,46 @@ public class UserServiceImpl implements UserService {
                 .map((user) -> mapToUserDto(user))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Page<UserDto> findAllUsers(Pageable pageable) {
+      Page<User> users = userRepository.findAll(pageable);
+        return users.map(UserServiceImpl::mapToUserDto);
+    }
+
+
     public static UserDto mapToUserDto(User user){
         UserDto userDto = new UserDto();
         String[] str = user.getUsername().split(" ");
-        userDto.setFirstName(str[0].toUpperCase());
-        userDto.setLastName(str[1].toUpperCase());
+        userDto.setFirstName(convertToTitleCase(str[0]));
+        userDto.setLastName(convertToTitleCase(str[1]));
         userDto.setGender(user.getGender());
         userDto.setBirthday(user.getBirthday());
         userDto.setEmail(user.getEmail());
         userDto.setPhone(user.getPhone());
         return userDto;
+    }
+
+    // convert String to Title Case
+    public static String convertToTitleCase(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        StringBuilder titleCase = new StringBuilder();
+        boolean nextTitleCase = true;
+
+        for (char c : input.toCharArray()) {
+            if (Character.isSpaceChar(c)) {
+                nextTitleCase = true;
+            } else if (nextTitleCase) {
+                titleCase.append(Character.toTitleCase(c));
+                nextTitleCase = false;
+            } else {
+                titleCase.append(Character.toLowerCase(c));
+            }
+        }
+
+        return titleCase.toString();
     }
 }
