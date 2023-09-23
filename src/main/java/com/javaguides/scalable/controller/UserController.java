@@ -25,6 +25,11 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+    // handler method to handle error 5xx
+    @GetMapping("/ex")
+    public String throwException() {
+        throw new RuntimeException("This is a fake exception for testing");
+    }
 
     // handler method to handle list of users
     @GetMapping

@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-@ControllerAdvice
+@ControllerAdvice //<.>
 public class GlobalControllerAdvice {
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler({DataIntegrityViolationException.class, ObjectOptimisticLockingFailureException.class})
-    public ModelAndView handleConflict(HttpServletRequest request, Exception e){
-        ModelAndView result = new ModelAndView("error/409");
-        result.addObject("url", request.getRequestURL());
+
+    @ResponseStatus(HttpStatus.CONFLICT) //<.>
+    @ExceptionHandler({DataIntegrityViolationException.class, ObjectOptimisticLockingFailureException.class}) //<.>
+    public ModelAndView handleConflict(HttpServletRequest request, Exception e) { //<.>
+        ModelAndView result = new ModelAndView("error/409"); //<.>
+        result.addObject("url", request.getRequestURL()); //<.>
         return result;
     }
 }
