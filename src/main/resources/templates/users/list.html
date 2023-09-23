@@ -1,29 +1,103 @@
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html&ndash;&gt;-->
+<!--&lt;!&ndash;        xmlns:th="http://www.thymeleaf.org"&ndash;&gt;-->
+<!--&lt;!&ndash;        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"&ndash;&gt;-->
+<!--&lt;!&ndash;        layout:decorate="~{layout/layout}"&ndash;&gt;-->
+<!--&lt;!&ndash;        th:with="activeMenuItem='users'"> &lt;!&ndash;.&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Users</title>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<div layout:fragment="page-content">&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash; tag::users-title[] &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">&ndash;&gt;-->
+<!--&lt;!&ndash;        <h1 class="text-2xl font-semibold text-gray-900">Users</h1>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    &lt;!&ndash; end::users-title[] &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="py-4">&ndash;&gt;-->
+<!--&lt;!&ndash;            <span></span>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+<!--&lt;!&ndash; tag::full[] &ndash;&gt;-->
 <!--<!DOCTYPE html>-->
 <!--<html-->
 <!--        xmlns:th="http://www.thymeleaf.org"-->
 <!--        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
 <!--        layout:decorate="~{layout/layout}"-->
-<!--        th:with="activeMenuItem='users'"> &lt;!&ndash;.&ndash;&gt;-->
+<!--        th:with="activeMenuItem='users'">-->
 <!--<head>-->
 <!--    <title>Users</title>-->
 <!--</head>-->
 <!--<body>-->
 <!--<div layout:fragment="page-content">-->
-<!--    &lt;!&ndash; tag::users-title[] &ndash;&gt;-->
 <!--    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">-->
-<!--        <h1 class="text-2xl font-semibold text-gray-900">Users</h1>-->
+<!--        <h1 class="text-2xl font-semibold text-gray-900"-->
+<!--            th:text="#{users.title}">Users</h1>-->
 <!--    </div>-->
-<!--    &lt;!&ndash; end::users-title[] &ndash;&gt;-->
+<!--    <div th:replace="fragments/titles :: title-with-button(#{users.title}, 'user-add', #{users.add}, @{/users/create})"></div>-->
 <!--    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">-->
 <!--        <div class="py-4">-->
-<!--            <span></span>-->
+<!--            <div class="flex flex-col">-->
+<!--                <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">-->
+<!--                    <div class="align-middle inline-block min-w-full shadow overflow-hidden rounded-md sm:rounded-lg border-b border-gray-200">-->
+<!--                        <table class="min-w-full">-->
+<!--                            <thead>-->
+<!--                            &lt;!&ndash; tag::tr[] &ndash;&gt;-->
+<!--                            <tr>-->
+<!--                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
+<!--                                    Name-->
+<!--                                </th>-->
+<!--                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
+<!--                                    Gender-->
+<!--                                </th>-->
+<!--                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
+<!--                                    Birthday-->
+<!--                                </th>-->
+<!--                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">-->
+<!--                                    Email-->
+<!--                                </th>-->
+<!--                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>-->
+<!--                            </tr>-->
+<!--                            &lt;!&ndash; end::tr[] &ndash;&gt;-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            &lt;!&ndash; tag::tr-body[] &ndash;&gt;-->
+<!--                            <tr class="bg-white" th:each="user : ${users}"> &lt;!&ndash;.&ndash;&gt;-->
+<!--                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900" th:text="${user.lastName} + ' ' + ${user.firstName}"> &lt;!&ndash;.&ndash;&gt;-->
+<!--                                    Bernard Lane-->
+<!--                                </td>-->
+<!--                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500" th:text="${user.gender}"> &lt;!&ndash;.&ndash;&gt;-->
+<!--                                    MALE-->
+<!--                                </td>-->
+<!--                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500" th:text="${user.birthday}"> &lt;!&ndash;.&ndash;&gt;-->
+<!--                                    2000-01-15-->
+<!--                                </td>-->
+<!--                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500" th:text="${user.email}"> &lt;!&ndash;.&ndash;&gt;-->
+<!--                                    bernard.lane@gmail.com-->
+<!--                                </td>-->
+<!--                                <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">-->
+<!--                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--&lt;!&ndash;                        <div th:replace="fragments/pagination :: controls(page=${users})"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div th:replace="fragments/pagination :: controls(page=${users})" ></div>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
 <!--</body>-->
 <!--</html>-->
 
-<!-- tag::full[] -->
+
 <!DOCTYPE html>
 <html
         xmlns:th="http://www.thymeleaf.org"
@@ -35,10 +109,9 @@
 </head>
 <body>
 <div layout:fragment="page-content">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <h1 class="text-2xl font-semibold text-gray-900"
-            th:text="#{users.title}">Users</h1>
-    </div>
+    <!-- tag::title[] -->
+    <div th:replace="fragments/titles :: title-with-button(#{users.title}, 'user-add', #{users.add}, @{/users/create})"></div>
+    <!-- end::title[] -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div class="py-4">
             <div class="flex flex-col">
@@ -48,45 +121,27 @@
                             <thead>
                             <!-- tag::tr[] -->
                             <tr>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Name
-                                </th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Gender
-                                </th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Birthday
-                                </th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                    Email
-                                </th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                                <th th:replace="fragments/table :: header(#{user.name})"></th>
+                                <th th:replace="fragments/table :: header(title=#{user.gender},hideOnMobile=true)"></th>
+                                <th th:replace="fragments/table :: header(title=#{user.birthday},hideOnMobile=true)"></th>
+                                <th th:replace="fragments/table :: header(title=#{user.email},hideOnMobile=true)"></th>
+                                <th th:replace="fragments/table :: header('')"></th>
                             </tr>
                             <!-- end::tr[] -->
                             </thead>
                             <tbody>
                             <!-- tag::tr-body[] -->
-                            <tr class="bg-white" th:each="user : ${users}"> <!--.-->
-                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900" th:text="${user.lastName} + ' ' + ${user.firstName}"> <!--.-->
-                                    Bernard Lane
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500" th:text="${user.gender}"> <!--.-->
-                                    MALE
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500" th:text="${user.birthday}"> <!--.-->
-                                    2000-01-15
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500" th:text="${user.email}"> <!--.-->
-                                    bernard.lane@gmail.com
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                </td>
+                            <tr class="bg-white" th:each="user : ${users}">
+                                <td th:replace="fragments/table :: data(contents=${user.lastName} + ' ' + ${user.firstName},primary=true)"></td>
+                                <td th:replace="fragments/table :: data(contents=${user.gender},hideOnMobile=true)"></td>
+                                <td th:replace="fragments/table :: data(contents=${user.birthday},hideOnMobile=true)"></td>
+                                <td th:replace="fragments/table :: data(contents=${user.email},hideOnMobile=true)"></td>
+                                <td th:replace="fragments/table :: dataWithLink('Edit', @{'/users/'+ ${user.id}})"></td> <!--.-->
                             </tr>
+                            <!-- end::tr-body[] -->
                             </tbody>
                         </table>
 <!--                        <div th:replace="fragments/pagination :: controls(page=${users})"></div>-->
-<!--                        <div th:replace="fragments/pagination :: controls(page=${users})" ></div>-->
                     </div>
                 </div>
             </div>

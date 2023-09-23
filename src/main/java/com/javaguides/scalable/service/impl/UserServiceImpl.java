@@ -2,6 +2,7 @@ package com.javaguides.scalable.service.impl;
 
 import com.javaguides.scalable.dto.UserDto;
 import com.javaguides.scalable.entity.User;
+import com.javaguides.scalable.mapper.UserMapper;
 import com.javaguides.scalable.repository.UserRepository;
 import com.javaguides.scalable.service.UserService;
 import org.springframework.data.domain.Page;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDto.getEmail());
         user.setGender(userDto.getGender());
         user.setBirthday(userDto.getBirthday());
-        user.setPhone(userDto.getPhone());
+        user.setPhoneNumber(userDto.getPhoneNumber());
         userRepository.save(user);
     }
 
@@ -40,49 +41,32 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
-                .map((user) -> mapToUserDto(user))
+                .map((user) -> UserMapper.mapToUserDto(user))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Page<UserDto> findAllUsers(Pageable pageable) {
       Page<User> users = userRepository.findAll(pageable);
-        return users.map(UserServiceImpl::mapToUserDto);
+        return users.map(UserMapper::mapToUserDto);
     }
 
-
-    public static UserDto mapToUserDto(User user){
-        UserDto userDto = new UserDto();
-        String[] str = user.getUsername().split(" ");
-        userDto.setFirstName(convertToTitleCase(str[0]));
-        userDto.setLastName(convertToTitleCase(str[1]));
-        userDto.setGender(user.getGender());
-        userDto.setBirthday(user.getBirthday());
-        userDto.setEmail(user.getEmail());
-        userDto.setPhone(user.getPhone());
+    @Override
+    public UserDto getUserById(Long userId) {
+        User user = userRepository.findById(userId).get();
+        UserDto userDto = UserMapper.mapToUserDto(user);
         return userDto;
     }
 
-    // convert String to Title Case
-    public static String convertToTitleCase(String input) {
-        if (input == null || input.isEmpty()) {
-            return input;
-        }
-
-        StringBuilder titleCase = new StringBuilder();
-        boolean nextTitleCase = true;
-
-        for (char c : input.toCharArray()) {
-            if (Character.isSpaceChar(c)) {
-                nextTitleCase = true;
-            } else if (nextTitleCase) {
-                titleCase.append(Character.toTitleCase(c));
-                nextTitleCase = false;
-            } else {
-                titleCase.append(Character.toLowerCase(c));
-            }
-        }
-
-        return titleCase.toString();
+    @Override
+    public void updateUser(UserDto userDto) {
+        userRepository.save(UserMapper.mapToUser(userDto));
     }
+
+    @Override
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+
 }

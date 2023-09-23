@@ -3,6 +3,7 @@ package com.javaguides.scalable.controller;
 
 import com.javaguides.scalable.dto.UserDto;
 import com.javaguides.scalable.entity.User;
+import com.javaguides.scalable.entity.constants.EditMode;
 import com.javaguides.scalable.entity.constants.GenderStatus;
 import com.javaguides.scalable.service.UserService;
 import jakarta.validation.Valid;
@@ -12,10 +13,7 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,8 +38,8 @@ public class UserController {
     @GetMapping("/create") //<.>
     public String createUserForm(Model model) { //<.>
         UserDto user = new UserDto();
-        model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
         model.addAttribute("user", user);
+        model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
         return "users/edit";
     }
     // handler method to handle user registration form submit request
@@ -49,10 +47,11 @@ public class UserController {
     public String doCreateUserForm(@Valid @ModelAttribute("user") UserDto userDto,
                                    BindingResult result,
                                    Model model){
-        User existingUser =userService.findUserByEmail(userDto.getEmail());
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
+        User existingUser = userService.findUserByEmail(userDto.getEmail());
+
+        // Fix email ( chua fix )
+        if(existingUser !=null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
+            result.rejectValue("email", null, "There is already a user with the given email address.");
         }
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
@@ -60,6 +59,32 @@ public class UserController {
             return "users/edit";
         }
         userService.saveUser(userDto);
+        return "redirect:/users?success";
+    }
+    // handler method to handle edit user form submit request
+    @GetMapping("/{userId}")
+    private String editUser(@PathVariable("userId") Long userId,
+                            Model model){
+        UserDto userDto = userService.getUserById(userId);
+        model.addAttribute("user", userDto);
+        // Loi do thang ben duoi
+        model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
+        model.addAttribute("editMode", EditMode.UPDATE);
+        return "users/edit";
+    }
+    // handler method to handle edit user form submit request
+    @PostMapping("/{userId}")
+    private String doEditUser(@PathVariable("userId") Long userId,
+                              @ModelAttribute("users") UserDto userDto,
+                              BindingResult result,
+                              Model model){
+        if (result.hasErrors()) {
+            model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER));
+            model.addAttribute("editMode", EditMode.UPDATE);
+            return "users/edit";
+        }
+        userDto.setId(userId);
+        userService.updateUser(userDto);
         return "redirect:/users";
     }
 }
