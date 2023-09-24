@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class UserController {
         userService.saveUser(userDto);
         return "redirect:/users?success";
     }
-    // handler method to handle edit user form submit request
+    // handler method to handle edit user request
     @GetMapping("/{userId}")
     private String editUser(@PathVariable("userId") Long userId,
                             Model model){
@@ -90,6 +91,17 @@ public class UserController {
         }
         userDto.setId(userId);
         userService.updateUser(userDto);
+        return "redirect:/users";
+    }
+    // handler method to handle delete user request
+    @PostMapping("/{userId}/delete")
+    public String doDeleteUser(@PathVariable("userId") Long userId,
+                               RedirectAttributes redirectAttributes) { //<.>
+        UserDto user = userService.getUserById(userId);
+        userService.deleteUser(userId);
+        redirectAttributes.addFlashAttribute("deletedUserName",
+                user.getFirstName()+' '+ user.getLastName()); //<.>
+
         return "redirect:/users";
     }
 }

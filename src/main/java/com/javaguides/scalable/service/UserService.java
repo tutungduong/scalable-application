@@ -13,8 +13,6 @@ public interface UserService {
     List<UserDto> findAllUsers();
     Page<UserDto> findAllUsers(Pageable pageable);
     UserDto getUserById(Long userId);
-
     void updateUser(UserDto userDto);
-
     void deleteUser(Long userId);
 }

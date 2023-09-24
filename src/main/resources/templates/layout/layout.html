@@ -1,3 +1,60 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--      lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Taming Thymeleaf</title> &lt;!&ndash;1&ndash;&gt;-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1"/>-->
+
+<!--    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">-->
+<!--    <link rel="stylesheet" th:href="@{/css/tailwind.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="h-screen flex overflow-hidden bg-gray-100"-->
+<!--     x-data="sidebarMenu()"-->
+<!--     @keydown.window.escape="closeSidebar">-->
+<!--    &lt;!&ndash; Off-canvas menu for mobile &ndash;&gt;-->
+<!--    <div th:replace="fragments/sidebar-menu :: mobile"></div>-->
+
+<!--    &lt;!&ndash; Static sidebar for desktop &ndash;&gt;-->
+<!--    <div th:replace="fragments/sidebar-menu :: desktop"></div>-->
+
+<!--    <div class="flex flex-col w-0 flex-1 overflow-hidden">-->
+<!--        <div th:replace="fragments/top-menu :: menu"></div>-->
+
+<!--        <main class="flex-1 relative z-0 overflow-y-auto py-6 focus:outline-none" tabindex="0">-->
+<!--            <div layout:fragment="page-content"> &lt;!&ndash;2&ndash;&gt;-->
+<!--            </div>-->
+<!--        </main>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>-->
+<!--<script th:src="@{/js/user-popup-menu.js}"></script>-->
+<!--<script>-->
+<!--    function sidebarMenu() {-->
+<!--        return {-->
+<!--            show: false,-->
+<!--            openSidebar() {-->
+<!--                this.show = true;-->
+<!--            },-->
+<!--            closeSidebar() {-->
+<!--                this.show = false;-->
+<!--            },-->
+<!--            isVisible() {-->
+<!--                return this.show === true;-->
+<!--            }-->
+<!--        };-->
+<!--    }-->
+<!--</script>-->
+<!--<th:block layout:fragment="page-scripts"> &lt;!&ndash;3&ndash;&gt;-->
+<!--</th:block>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
@@ -5,7 +62,7 @@
       lang="en">
 <head>
     <meta charset="UTF-8">
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Taming Thymeleaf</title> <!--1-->
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Taming Thymeleaf</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
@@ -26,12 +83,14 @@
         <div th:replace="fragments/top-menu :: menu"></div>
 
         <main class="flex-1 relative z-0 overflow-y-auto py-6 focus:outline-none" tabindex="0">
-            <div layout:fragment="page-content"> <!--2-->
+            <div layout:fragment="page-content">
             </div>
         </main>
     </div>
 </div>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<div layout:fragment="modals-content">
+</div>
+<script src="https://unpkg.com/alpinejs@3.7.0/dist/cdn.min.js" defer></script>
 <script th:src="@{/js/user-popup-menu.js}"></script>
 <script>
     function sidebarMenu() {
@@ -49,7 +108,7 @@
         };
     }
 </script>
-<th:block layout:fragment="page-scripts"> <!--3-->
+<th:block layout:fragment="page-scripts">
 </th:block>
 </body>
 </html>
