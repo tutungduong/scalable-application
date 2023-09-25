@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.SortDefault;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,7 @@ public class UserController {
     }
     // handler method to handle user registration form request
     @GetMapping("/create") //<.>
+    @Secured("ROLE_ADMIN")
     public String createUserForm(Model model) { //<.>
         UserDto user = new UserDto();
         model.addAttribute("user", user);
@@ -50,6 +52,7 @@ public class UserController {
     }
     // handler method to handle user registration form submit request
     @PostMapping("/create")
+    @Secured("ROLE_ADMIN")
     public String doCreateUserForm(@Valid @ModelAttribute("user") UserDto userDto,
                                    BindingResult result,
                                    Model model){
@@ -80,6 +83,7 @@ public class UserController {
     }
     // handler method to handle edit user form submit request
     @PostMapping("/{userId}")
+    @Secured("ROLE_ADMIN")
     private String doEditUser(@PathVariable("userId") Long userId,
                               @ModelAttribute("users") UserDto userDto,
                               BindingResult result,
@@ -94,7 +98,8 @@ public class UserController {
         return "redirect:/users";
     }
     // handler method to handle delete user request
-    @PostMapping("/{userId}/delete")
+    @GetMapping("/{userId}/delete")
+    @Secured("ROLE_ADMIN")
     public String doDeleteUser(@PathVariable("userId") Long userId,
                                RedirectAttributes redirectAttributes) { //<.>
         UserDto user = userService.getUserById(userId);

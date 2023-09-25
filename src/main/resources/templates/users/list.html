@@ -254,7 +254,7 @@
 </head>
 <body>
 <div layout:fragment="page-content">
-    <div th:replace="fragments/titles :: title-with-button(#{users.title}, 'user-add', #{users.add}, @{/users/create})"></div>
+    <div th:replace="fragments/titles :: title-with-button(#{users.title}, 'user-add', #{users.add}, @{/users/create})" sec:authorize="hasRole('ADMIN')"></div>
     <!-- tag::alert[] -->
     <div th:if="${deletedUserName}"> <!--.-->
         <div th:replace="fragments/alerts :: success(#{user.delete.success(${deletedUserName})})"></div> <!--.-->
@@ -273,6 +273,7 @@
                                 <th th:replace="fragments/table :: header(title=#{user.gender},hideOnMobile=true)"></th>
                                 <th th:replace="fragments/table :: header(title=#{user.birthday},hideOnMobile=true)"></th>
                                 <th th:replace="fragments/table :: header(title=#{user.email},hideOnMobile=true)"></th>
+                                <th:block sec:authorize="hasRole('ADMIN')">
                                 <th th:replace="fragments/table :: header('')"></th>
                                 <!-- tag::delete-th[] -->
                                 <th th:replace="fragments/table :: header('')"></th>
@@ -287,6 +288,7 @@
                                 <td th:replace="fragments/table :: data(contents=${user.gender},hideOnMobile=true)"></td>
                                 <td th:replace="fragments/table :: data(contents=${user.birthday},hideOnMobile=true)"></td>
                                 <td th:replace="fragments/table :: data(contents=${user.email},hideOnMobile=true)"></td>
+                                <th:block sec:authorize="hasRole('ADMIN')"> <!--.-->
                                 <td th:replace="fragments/table :: dataWithLink('Edit', @{'/users/'+ ${user.id}})"></td>
                                 <!-- tag::delete-td[] -->
                                 <td th:x-data="|{name: '${user.lastName} + ' ' + ${user.firstName}', deleteUrl: '/users/${user.id}/delete'}|"
@@ -299,7 +301,7 @@
                             </tbody>
                         </table>
                         <th:block th:if="${users.content.size() > 0}">
-                            <div th:replace="fragments/pagination :: controls(page=${users})"></div>
+<!--                            <div th:replace="fragments/pagination :: controls(page=${users})"></div>-->
                         </th:block>
                     </div>
                 </div>
