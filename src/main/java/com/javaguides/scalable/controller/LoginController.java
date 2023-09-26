@@ -8,15 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
     @GetMapping("/login")
-//    public String login(@AuthenticationPrincipal UserDetails userDetails){
-//        if(userDetails == null){
-//            return "login";
-//        }
-//        else{
-//            return "redirect:/";
-//        }
-//    }
-        public String login(){
+    public String login(@AuthenticationPrincipal UserDetails userDetails){
+        if(userDetails == null){
             return "login";
         }
+        else{
+            return "redirect:/";
+        }
+    }
 }

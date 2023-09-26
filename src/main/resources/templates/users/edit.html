@@ -26,6 +26,20 @@
                         <div th:replace="fragments/forms :: fielderrors"></div>
                         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                             <input type="hidden" th:if="${editMode?.name() == 'UPDATE'}"> <!--.-->
+                            <!-- tag::userRole[] -->
+                            <div class="sm:col-span-2">
+                                <label for="userRole" class="block text-sm font-medium text-gray-700">User
+                                    Role</label>
+                                <select id="userRole"
+                                        class="max-w-lg block focus:ring-green-500 focus:border-green-500 w-full shadow-sm sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
+                                        th:field="*{Role}">
+                                    <option th:each="role : ${possibleRoles}"
+                                            th:text="#{'UserRole.' + ${role.name()}}"
+                                            th:value="${role.name()}">User
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- end::userRole[] -->
                             <!-- tag::gender[] -->
                             <div class="sm:col-span-6">
                                 <label class="block text-sm font-medium text-gray-700"

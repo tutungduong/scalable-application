@@ -33,4 +33,6 @@ public class UserDto {
     private String email;
     @NotBlank
     private String phoneNumber;
+    @NotNull
+    private String password;
 }

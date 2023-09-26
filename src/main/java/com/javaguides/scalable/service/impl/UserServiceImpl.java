@@ -3,10 +3,12 @@ package com.javaguides.scalable.service.impl;
 import com.javaguides.scalable.dto.UserDto;
 import com.javaguides.scalable.entity.User;
 import com.javaguides.scalable.mapper.UserMapper;
+//import com.javaguides.scalable.repository.RoleRepository;
 import com.javaguides.scalable.repository.UserRepository;
 import com.javaguides.scalable.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +18,15 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
+//    private RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+//                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+//        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -29,8 +37,20 @@ public class UserServiceImpl implements UserService {
         user.setGender(userDto.getGender());
         user.setBirthday(userDto.getBirthday());
         user.setPhoneNumber(userDto.getPhoneNumber());
+//        // encrypt the password using spring security
+//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+//        Role role = roleRepository.findByName(UserRole.ADMIN.toString());
+//        if(role == null){
+//            role = checkRoleExist();
+//        }
         userRepository.save(user);
     }
+
+//    private Role checkRoleExist(){
+//        Role role = new Role();
+//        role.setRoleName(UserRole.ADMIN.toString());
+//        return roleRepository.save(role);
+//    }
 
     @Override
     public User findUserByEmail(String email) {

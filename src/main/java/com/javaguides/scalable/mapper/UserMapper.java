@@ -6,37 +6,46 @@ import com.javaguides.scalable.entity.User;
 public class UserMapper {
 
     public static UserDto mapToUserDto(User user) {
-//        UserDto userDto = new UserDto();
+
 //        String[] str = user.getUsername().split(" ");
-//        userDto.setId(user.getId());
-//        userDto.setFirstName(convertToTitleCase(str[0]));
-//        userDto.setLastName(convertToTitleCase(str[1]));
-//        userDto.setGender(user.getGender());
-//        userDto.setBirthday(user.getBirthday());
-//        userDto.setEmail(user.getEmail());
-//        userDto.setPhoneNumber(user.getPhoneNumber());
+//        UserDto userDto = new UserDto(
+//                user.getId(),
+//                convertToTitleCase(str[0]),
+//                convertToTitleCase(str[1]),
+//                user.getGender(),
+//                user.getBirthday(),
+//                user.getEmail(),
+//                user.getPhoneNumber(),
+//                user.getPassword()
+        UserDto userDto = new UserDto();
         String[] str = user.getUsername().split(" ");
-        UserDto userDto = new UserDto(
-                user.getId(),
-                convertToTitleCase(str[0]),
-                convertToTitleCase(str[1]),
-                user.getGender(),
-                user.getBirthday(),
-                user.getEmail(),
-                user.getPhoneNumber()
-        );
+        userDto.setId(user.getId());
+        userDto.setFirstName(convertToTitleCase(str[0]));
+        userDto.setLastName(convertToTitleCase(str[1]));
+        userDto.setGender(user.getGender());
+        userDto.setBirthday(user.getBirthday());
+        userDto.setEmail(user.getEmail());
+        userDto.setPhoneNumber(user.getPhoneNumber());
         return userDto;
     }
 
     public static User mapToUser(UserDto userDto){
-        User user = new User(
-                userDto.getId(),
-                userDto.getFirstName()+ ' ' + userDto.getLastName(),
-                userDto.getGender(),
-                userDto.getBirthday(),
-                userDto.getEmail(),
-                userDto.getPhoneNumber()
-        );
+//        User user = new User(
+//                userDto.getId(),
+//                userDto.getFirstName()+ ' ' + userDto.getLastName(),
+//                userDto.getGender(),
+//                userDto.getBirthday(),
+//                userDto.getEmail(),
+//                userDto.getPhoneNumber(),
+//                userDto.getPassword()
+//        );
+        User user = new User();
+        user.setId(userDto.getId());
+        user.setUsername(userDto.getFirstName()+ ' ' + userDto.getLastName());
+        user.setGender(userDto.getGender());
+        user.setBirthday(userDto.getBirthday());
+        user.setEmail(userDto.getEmail());
+        user.setPhoneNumber(userDto.getPhoneNumber());
         return user;
     }
 

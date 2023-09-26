@@ -5,11 +5,11 @@ import com.javaguides.scalable.dto.UserDto;
 import com.javaguides.scalable.entity.User;
 import com.javaguides.scalable.entity.constants.EditMode;
 import com.javaguides.scalable.entity.constants.GenderStatus;
+import com.javaguides.scalable.entity.constants.RoleStatus;
 import com.javaguides.scalable.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.SortDefault;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +48,7 @@ public class UserController {
         UserDto user = new UserDto();
         model.addAttribute("user", user);
         model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
+        model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
         return "users/edit";
     }
     // handler method to handle user registration form submit request
