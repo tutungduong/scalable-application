@@ -1,9 +1,11 @@
 package com.javaguides.scalable.service.impl;
 
 import com.javaguides.scalable.dto.UserDto;
+import com.javaguides.scalable.entity.Role;
 import com.javaguides.scalable.entity.User;
+import com.javaguides.scalable.entity.constants.RoleStatus;
 import com.javaguides.scalable.mapper.UserMapper;
-//import com.javaguides.scalable.repository.RoleRepository;
+import com.javaguides.scalable.repository.RoleRepository;
 import com.javaguides.scalable.repository.UserRepository;
 import com.javaguides.scalable.service.UserService;
 import org.springframework.data.domain.Page;
@@ -38,8 +40,8 @@ public class UserServiceImpl implements UserService {
         user.setBirthday(userDto.getBirthday());
         user.setPhoneNumber(userDto.getPhoneNumber());
 //        // encrypt the password using spring security
-//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        Role role = roleRepository.findByName(UserRole.ADMIN.toString());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+//        Role role = roleRepository.findByName(RoleStatus.ADMIN);
 //        if(role == null){
 //            role = checkRoleExist();
 //        }
@@ -48,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
 //    private Role checkRoleExist(){
 //        Role role = new Role();
-//        role.setRoleName(UserRole.ADMIN.toString());
+//        role.setRoleName(RoleStatus.ADMIN);
 //        return roleRepository.save(role);
 //    }
 

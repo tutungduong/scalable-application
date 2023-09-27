@@ -66,6 +66,7 @@ public class UserController {
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
             model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER));
+            model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
             return "users/edit";
         }
         userService.saveUser(userDto);
@@ -79,6 +80,7 @@ public class UserController {
         model.addAttribute("user", userDto);
         // Loi do thang ben duoi
         model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
+        model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
         model.addAttribute("editMode", EditMode.UPDATE);
         return "users/edit";
     }
@@ -91,6 +93,7 @@ public class UserController {
                               Model model){
         if (result.hasErrors()) {
             model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER));
+            model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
             model.addAttribute("editMode", EditMode.UPDATE);
             return "users/edit";
         }

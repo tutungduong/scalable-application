@@ -4,6 +4,7 @@ package com.javaguides.scalable.dto;
 import com.javaguides.scalable.entity.constants.GenderStatus;
 
 
+import com.javaguides.scalable.entity.constants.RoleStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -34,5 +35,9 @@ public class UserDto {
     @NotBlank
     private String phoneNumber;
     @NotNull
+    private RoleStatus userRole;
+    @NotNull
     private String password;
+    @NotNull
+    private String passwordRepeated;
 }
