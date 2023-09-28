@@ -8,31 +8,35 @@ import com.javaguides.scalable.mapper.UserMapper;
 import com.javaguides.scalable.repository.RoleRepository;
 import com.javaguides.scalable.repository.UserRepository;
 import com.javaguides.scalable.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-//    private RoleRepository roleRepository;
+    private RoleRepository roleRepository;
+//    private PasswordEncoder passwordEncoder;
+
 
     public UserServiceImpl(UserRepository userRepository,
-//                           RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           RoleRepository roleRepository) {
         this.userRepository = userRepository;
-//        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
-
     @Override
     public void saveUser(UserDto userDto) {
+
         User user = new User();
         user.setUsername(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
@@ -40,20 +44,25 @@ public class UserServiceImpl implements UserService {
         user.setBirthday(userDto.getBirthday());
         user.setPhoneNumber(userDto.getPhoneNumber());
 //        // encrypt the password using spring security
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        Role role = roleRepository.findByName(RoleStatus.ADMIN);
-//        if(role == null){
-//            role = checkRoleExist();
-//        }
+//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setPassword(user.getPassword());
+        Role role = roleRepository.findByName(List.of(RoleStatus.ADMIN,RoleStatus.USER).toString());
+        if(role == null){
+            role = checkRoleExist(userDto);
+        }
+        user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
 
-//    private Role checkRoleExist(){
-//        Role role = new Role();
-//        role.setRoleName(RoleStatus.ADMIN);
-//        return roleRepository.save(role);
-//    }
-
+    private Role checkRoleExist(UserDto userDto){
+        Role role = new Role();
+        if(userDto.getUserRole() == RoleStatus.USER){
+            role.setName(userDto.getUserRole().toString());
+        }else{
+            role.setName(Set.of(RoleStatus.ADMIN,RoleStatus.USER).toString());
+        }
+        return roleRepository.save(role);
+    }
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
