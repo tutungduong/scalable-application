@@ -26,13 +26,15 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-//    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
 
     public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository) {
+                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
     @Override
     public void saveUser(UserDto userDto) {
@@ -44,9 +46,10 @@ public class UserServiceImpl implements UserService {
         user.setBirthday(userDto.getBirthday());
         user.setPhoneNumber(userDto.getPhoneNumber());
 //        // encrypt the password using spring security
-//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        user.setPassword(user.getPassword());
-        Role role = roleRepository.findByName(List.of(RoleStatus.ADMIN,RoleStatus.USER).toString());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+//        user.setPassword(user.getPassword());
+//        Role role = roleRepository.findByName(List.of(RoleStatus.ADMIN,RoleStatus.USER).toString());
+         Role role = roleRepository.findByName("ROLE_ADMIN");
         if(role == null){
             role = checkRoleExist(userDto);
         }
@@ -55,12 +58,15 @@ public class UserServiceImpl implements UserService {
     }
 
     private Role checkRoleExist(UserDto userDto){
+//        Role role = new Role();
+//        if(userDto.getUserRole() == RoleStatus.USER){
+//            role.setName(userDto.getUserRole().toString());
+//        }else{
+//            role.setName(Set.of(RoleStatus.ADMIN,RoleStatus.USER).toString());
+//        }
+//        return roleRepository.save(role);
         Role role = new Role();
-        if(userDto.getUserRole() == RoleStatus.USER){
-            role.setName(userDto.getUserRole().toString());
-        }else{
-            role.setName(Set.of(RoleStatus.ADMIN,RoleStatus.USER).toString());
-        }
+        role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
     }
     @Override

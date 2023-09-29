@@ -26,7 +26,7 @@ public class UserMapper {
         userDto.setBirthday(user.getBirthday());
         userDto.setEmail(user.getEmail());
         userDto.setPhoneNumber(user.getPhoneNumber());
-        userDto.setPassword(user.getPassword());
+//        userDto.setPassword(user.getPassword());
         return userDto;
     }
 
@@ -47,7 +47,7 @@ public class UserMapper {
         user.setBirthday(userDto.getBirthday());
         user.setEmail(userDto.getEmail());
         user.setPhoneNumber(userDto.getPhoneNumber());
-        user.setPassword(userDto.getPassword());
+//        user.setPassword(userDto.getPassword());
         return user;
     }
 

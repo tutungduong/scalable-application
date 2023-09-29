@@ -120,25 +120,25 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public UserDetailsService inMemoryUserDetailsService() {
-        PasswordEncoder encoder = passwordEncoder();
-
-        UserDetails user = User.builder()
-                .username("user")
-                .password(encoder.encode("123456"))
-//                .password("user")
-                .roles("USER")
-                .build();
-
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(encoder.encode("admin"))
-//                .password("admin")
-                .roles("ADMIN","USER")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin);
-    }
+//    @Bean
+//    public UserDetailsService inMemoryUserDetailsService() {
+//        PasswordEncoder encoder = passwordEncoder();
+//
+//        UserDetails user = User.builder()
+//                .username("user")
+//                .password(encoder.encode("123456"))
+////                .password("user")
+//                .roles("USER")
+//                .build();
+//
+//        UserDetails admin = User.builder()
+//                .username("admin")
+//                .password(encoder.encode("admin"))
+////                .password("admin")
+//                .roles("ADMIN","USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user, admin);
+//    }
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())

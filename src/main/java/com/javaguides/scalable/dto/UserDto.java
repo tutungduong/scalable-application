@@ -21,8 +21,8 @@ import lombok.Setter;
 
 public class UserDto {
     private Long id;
-    @NotNull
-    private RoleStatus userRole;
+//    @NotNull
+//    private RoleStatus userRole;
     @NotBlank
     private String firstName;
     @NotBlank
