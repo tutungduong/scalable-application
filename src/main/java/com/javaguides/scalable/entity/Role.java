@@ -1,5 +1,7 @@
 package com.javaguides.scalable.entity;
 
+import com.javaguides.scalable.entity.constants.RoleStatus;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,7 +23,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleStatus name;
     @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
 }

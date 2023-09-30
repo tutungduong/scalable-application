@@ -8,11 +8,8 @@ import com.javaguides.scalable.mapper.UserMapper;
 import com.javaguides.scalable.repository.RoleRepository;
 import com.javaguides.scalable.repository.UserRepository;
 import com.javaguides.scalable.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,28 +44,29 @@ public class UserServiceImpl implements UserService {
         user.setPhoneNumber(userDto.getPhoneNumber());
 //        // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        user.setPassword(user.getPassword());
-//        Role role = roleRepository.findByName(List.of(RoleStatus.ADMIN,RoleStatus.USER).toString());
-         Role role = roleRepository.findByName("ROLE_ADMIN");
+        Role role = roleRepository.findByName(RoleStatus.ADMIN);
         if(role == null){
-            role = checkRoleExist(userDto);
+            role = checkRoleExist();
         }
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
     }
 
-    private Role checkRoleExist(UserDto userDto){
-//        Role role = new Role();
-//        if(userDto.getUserRole() == RoleStatus.USER){
-//            role.setName(userDto.getUserRole().toString());
-//        }else{
-//            role.setName(Set.of(RoleStatus.ADMIN,RoleStatus.USER).toString());
-//        }
-//        return roleRepository.save(role);
+    private Role checkRoleExist(){
         Role role = new Role();
-        role.setName("ROLE_ADMIN");
+        role.setName(RoleStatus.ADMIN);
         return roleRepository.save(role);
     }
+//    private Role checkRoleExist(UserDto userDto){
+//        Role role = new Role();
+//        if(userDto.getUserRole() != RoleStatus.USER){
+//            role.setName(Set.of(RoleStatus.ADMIN,RoleStatus.USER));
+//        }
+//        else{
+//            role.setName(Set.of(RoleStatus.USER));
+//        }
+//        return roleRepository.save(role);
+//    }
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);

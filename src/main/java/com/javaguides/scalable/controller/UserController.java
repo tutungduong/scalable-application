@@ -96,7 +96,6 @@ public class UserController {
             model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER));
             model.addAttribute("editMode", EditMode.UPDATE);
 //            model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
-
             return "users/edit";
         }
         userDto.setId(userId);

@@ -135,7 +135,7 @@ public class WebSecurityConfig {
 //                .username("admin")
 //                .password(encoder.encode("admin"))
 ////                .password("admin")
-//                .roles("ADMIN","USER")
+//                .roles("ADMIN")
 //                .build();
 //        return new InMemoryUserDetailsManager(user, admin);
 //    }
