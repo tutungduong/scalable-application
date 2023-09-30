@@ -29,8 +29,8 @@ public class UserDto {
     private String lastName;
     @NotNull
     private GenderStatus gender;
-//    @NotNull
-//    private GenderStatus userRole;
+    @NotNull
+    private RoleStatus userRole;
     @NotBlank
     private String birthday;
     @Email

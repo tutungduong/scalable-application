@@ -108,6 +108,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.swing.*;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -145,6 +147,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/users/create").hasRole("ADMIN")
                         .requestMatchers("/users/*/delete").hasRole("ADMIN")
+                        .requestMatchers("/users/*/edit").hasRole("ADMIN")
                         .requestMatchers("/img/*").permitAll()
                         .requestMatchers("/css/*").permitAll()
 //                        .requestMatchers(HttpMethod.GET, "/users/*").hasRole("USER")

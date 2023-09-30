@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.*;
 import java.util.List;
 
 @Controller
@@ -48,7 +49,8 @@ public class UserController {
         UserDto user = new UserDto();
         model.addAttribute("user", user);
         model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
-//        model.addAttribute("roles",List.of(RoleStatus.values()));
+        model.addAttribute("editMode", EditMode.CREATE);
+        model.addAttribute("roles",List.of(RoleStatus.values()));
         return "users/edit";
     }
     // handler method to handle user registration form submit request
@@ -66,7 +68,8 @@ public class UserController {
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
             model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER));
-//            model.addAttribute("roles",List.of(RoleStatus.values()));
+            model.addAttribute("editMode", EditMode.CREATE);
+            model.addAttribute("roles",List.of(RoleStatus.values()));
             return "users/edit";
         }
         userService.saveUser(userDto);
@@ -74,14 +77,14 @@ public class UserController {
     }
     // handler method to handle edit user request
     @GetMapping("/{userId}")
+    @Secured("ROLE_ADMIN")
     private String editUser(@PathVariable("userId") Long userId,
                             Model model){
         UserDto userDto = userService.getUserById(userId);
         model.addAttribute("user", userDto);
-        // Loi do thang ben duoi
         model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
         model.addAttribute("editMode", EditMode.UPDATE);
-//        model.addAttribute("roles",List.of(RoleStatus.values()));
+        model.addAttribute("roles",List.of(RoleStatus.values()));
 
         return "users/edit";
     }
@@ -95,7 +98,7 @@ public class UserController {
         if (result.hasErrors()) {
             model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER));
             model.addAttribute("editMode", EditMode.UPDATE);
-//            model.addAttribute("roles",List.of(RoleStatus.values()));
+            model.addAttribute("roles",List.of(RoleStatus.values()));
             return "users/edit";
         }
         userDto.setId(userId);
