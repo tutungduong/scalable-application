@@ -5,6 +5,7 @@ import com.javaguides.scalable.entity.constants.GenderStatus;
 
 
 import com.javaguides.scalable.entity.constants.RoleStatus;
+import com.javaguides.scalable.validator.PasswordsMatch;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@PasswordsMatch
 
 public class UserDto {
     private Long id;
@@ -27,6 +29,8 @@ public class UserDto {
     private String lastName;
     @NotNull
     private GenderStatus gender;
+//    @NotNull
+//    private GenderStatus userRole;
     @NotBlank
     private String birthday;
     @Email
@@ -34,6 +38,9 @@ public class UserDto {
     private String email;
     @NotBlank
     private String phoneNumber;
-    @NotNull
+    @NotBlank
     private String password;
+    @NotBlank
+    private String passwordRepeated;
+
 }

@@ -147,8 +147,8 @@ public class WebSecurityConfig {
                         .requestMatchers("/users/*/delete").hasRole("ADMIN")
                         .requestMatchers("/img/*").permitAll()
                         .requestMatchers("/css/*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/users/*").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST, "/users/*").hasRole("ADMIN")
+//                        .requestMatchers(HttpMethod.GET, "/users/*").hasRole("USER")
+//                        .requestMatchers(HttpMethod.POST, "/users/*").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(login -> login
                         .loginPage("/login")

@@ -74,7 +74,7 @@
                             <div th:replace="fragments/forms :: textinput(labelText=#{user.email}, fieldName='email', cssClass='sm:col-span-4', inputType='email')"></div>
 <!--                            <th:block th:if="${editMode?.name() == 'CREATE'}"> &lt;!&ndash;.&ndash;&gt;-->
                                 <div th:replace="fragments/forms :: textinput(labelText=#{user.password}, fieldName='password', cssClass='sm:col-span-4', inputType='password')"></div>
-<!--                                <div th:replace="fragments/forms :: textinput(labelText=#{user.password.repeated}, fieldName='passwordRepeated', cssClass='sm:col-span-4', inputType='password')"></div>-->
+                                <div th:replace="fragments/forms :: textinput(labelText=#{user.password.repeated}, fieldName='passwordRepeated', cssClass='sm:col-span-4', inputType='password')"></div>
 <!--                            </th:block>-->
                             <div th:replace="fragments/forms :: textinput(#{user.phoneNumber}, 'phoneNumber', 'sm:col-span-4')"></div>
                             <div class="sm:col-span-2"></div>

@@ -48,7 +48,7 @@ public class UserController {
         UserDto user = new UserDto();
         model.addAttribute("user", user);
         model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
-//        model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
+//        model.addAttribute("roles",List.of(RoleStatus.values()));
         return "users/edit";
     }
     // handler method to handle user registration form submit request
@@ -66,7 +66,7 @@ public class UserController {
         if(result.hasErrors()){
             model.addAttribute("user", userDto);
             model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER));
-//            model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
+//            model.addAttribute("roles",List.of(RoleStatus.values()));
             return "users/edit";
         }
         userService.saveUser(userDto);
@@ -81,7 +81,7 @@ public class UserController {
         // Loi do thang ben duoi
         model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER)); //<.>
         model.addAttribute("editMode", EditMode.UPDATE);
-//        model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
+//        model.addAttribute("roles",List.of(RoleStatus.values()));
 
         return "users/edit";
     }
@@ -95,7 +95,7 @@ public class UserController {
         if (result.hasErrors()) {
             model.addAttribute("genders", List.of(GenderStatus.MALE, GenderStatus.FEMALE, GenderStatus.OTHER));
             model.addAttribute("editMode", EditMode.UPDATE);
-//            model.addAttribute("roles",List.of(RoleStatus.USER,RoleStatus.ADMIN));
+//            model.addAttribute("roles",List.of(RoleStatus.values()));
             return "users/edit";
         }
         userDto.setId(userId);
